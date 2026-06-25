@@ -9,6 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class ToDoController {
+
     private final ToDoService toDoService;
 
     public ToDoController(ToDoService toDoService) {
@@ -18,7 +19,6 @@ public class ToDoController {
     @GetMapping("/todos")
     public List<Todo> getAllTodos() {
         return toDoService.getAllTodos();
-
     }
 
     @GetMapping("/todos/{id}")
@@ -27,18 +27,18 @@ public class ToDoController {
     }
 
     @PostMapping("/todos")
-    public Todo createTodo(@RequestBody Todo todo ) {
-
-
+    public Todo createTodo(@RequestBody Todo todo) {
         return toDoService.createTodo(todo);
     }
 
     @PutMapping("/todos/{id}")
-    public Todo updateTodo(@PathVariable Long id, @RequestBody Todo todo){
-    return toDoService.updateTodo(id,todo);
+    public Todo updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
+        return toDoService.updateTodo(id, todo);
     }
+
+    @DeleteMapping("/todos/{id}")
+    public void deleteTodo(@PathVariable Long id) {
+        toDoService.deleteTodo(id);
+    }
+
 }
-
-
-
-
