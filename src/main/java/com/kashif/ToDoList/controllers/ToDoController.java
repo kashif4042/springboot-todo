@@ -2,6 +2,7 @@ package com.kashif.ToDoList.controllers;
 
 import com.kashif.ToDoList.model.Todo;
 import com.kashif.ToDoList.services.ToDoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +18,10 @@ public class ToDoController {
     }
 
     @GetMapping("/todos")
-    public List<Todo> getAllTodos() {
-        return toDoService.getAllTodos();
+    public ResponseEntity<List<Todo>> getAllTodos() {
+        return ResponseEntity.ok(toDoService.getAllTodos());
     }
+
 
     @GetMapping("/todos/{id}")
     public Todo getToDoById(@PathVariable Long id) {
