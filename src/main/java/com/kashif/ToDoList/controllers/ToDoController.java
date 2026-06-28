@@ -2,6 +2,7 @@ package com.kashif.ToDoList.controllers;
 
 import com.kashif.ToDoList.model.Todo;
 import com.kashif.ToDoList.services.ToDoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,23 +25,24 @@ public class ToDoController {
 
 
     @GetMapping("/todos/{id}")
-    public Todo getToDoById(@PathVariable Long id) {
-        return toDoService.getTodoById(id);
+    public ResponseEntity<Todo> getTodoById (@PathVariable Long id) {
+        return ResponseEntity.ok(toDoService.getTodoById(id));
     }
 
     @PostMapping("/todos")
-    public Todo createTodo(@RequestBody Todo todo) {
-        return toDoService.createTodo(todo);
+    public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(toDoService.createTodo(todo));
     }
 
     @PutMapping("/todos/{id}")
-    public Todo updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
-        return toDoService.updateTodo(id, todo);
+    public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
+        return ResponseEntity.ok(toDoService.updateTodo(id, todo));
     }
 
     @DeleteMapping("/todos/{id}")
-    public void deleteTodo(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
         toDoService.deleteTodo(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
