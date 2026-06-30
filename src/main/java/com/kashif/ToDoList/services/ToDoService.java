@@ -1,5 +1,6 @@
 package com.kashif.ToDoList.services;
 
+import com.kashif.ToDoList.Exception.ResourceNotFoundException;
 import com.kashif.ToDoList.model.Todo;
 import com.kashif.ToDoList.repository.TodoRepository;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class ToDoService {
 
     // 2. getTodoById
     public Todo getTodoById(Long id) {
-        return todoRepository.findById(id).orElseThrow();
+        return todoRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Todo with ID"+ id + "not found"));
     }
 
     // 3. createTodo
@@ -32,7 +33,7 @@ public class ToDoService {
 
     // 4.updateTodo
     public Todo updateTodo(Long id,Todo updatedTodo){
-       Todo todo=  todoRepository.findById(id).orElseThrow();
+       Todo todo=  todoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Todo with ID" + id +"Not found"));
        todo.setTitle(updatedTodo.getTitle());
        todo.setCompleted(updatedTodo.isCompleted());
        todoRepository.save(todo);
@@ -40,6 +41,10 @@ public class ToDoService {
     }
 
     public void deleteTodo(Long id){
+
+        if(!todoRepository.existsById(id)){
+            throw new ResourceNotFoundException("Todo with ID" + id + "Not Found");
+        }
          todoRepository.deleteById(id);
     }
 }
