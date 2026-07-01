@@ -4,10 +4,12 @@ import com.kashif.ToDoList.Exception.ResourceNotFoundException;
 import com.kashif.ToDoList.model.Todo;
 import com.kashif.ToDoList.repository.TodoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class ToDoService {
 
     private final TodoRepository todoRepository;
