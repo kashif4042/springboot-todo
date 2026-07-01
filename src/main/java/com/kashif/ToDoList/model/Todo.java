@@ -1,6 +1,8 @@
 package com.kashif.ToDoList.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 
 @Entity
 @Table(name = "todos")
@@ -10,6 +12,7 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Title cannot be Empty")
     private String title;
     private boolean completed;
 

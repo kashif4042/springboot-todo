@@ -2,6 +2,7 @@ package com.kashif.ToDoList.controllers;
 
 import com.kashif.ToDoList.model.Todo;
 import com.kashif.ToDoList.services.ToDoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class ToDoController {
     }
 
     @PostMapping("/todos")
-    public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
+    public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo todo) {
         return ResponseEntity.status(HttpStatus.CREATED).body(toDoService.createTodo(todo));
     }
 
